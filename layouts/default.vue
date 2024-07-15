@@ -1,5 +1,6 @@
 <template>
   <nuxt-loading-indicator />
+  {{ isLoading }}
   <template v-if="isLoading">
     <div class="min-h-screen flex items-center justify-center">
       <progress-spinner />
@@ -9,48 +10,45 @@
     <div class="flex min-h-screen">
       <ui-sidebar class="p-10" />
       <div class="flex-grow p-10">
-        <span class="text-sm mb-4 text-[--p-surface-500] font-medium">{{
-          routeName
-        }}</span>
-
+        <span class="text-sm mb-4 text-[--p-surface-500] font-medium">
+          {{ routeName }}
+        </span>
         <slot />
       </div>
     </div>
   </template>
 </template>
-<script setup lang="ts">
-import { onAuthStateChanged } from "firebase/auth";
 
-const authStore = useAuthStore();
-const auth = useFirebaseClient().auth;
+<script setup lang="ts">
 const route = useRoute();
 const mainStore = useMainStore();
 
-const routeName = computed(
-  () =>
+const routeName = computed(() => {
+  return (
     route.name?.toString().charAt(0).toUpperCase() +
     route.name?.toString().slice(1)
-);
-const isLoading = computed(() => mainStore.isLoading);
-
-await onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    navigateTo("/auth/login");
-  } else {
-    authStore.setUser(user);
-  }
+  );
 });
 
+const isLoading = computed(() => mainStore.isLoading);
+
 onMounted(async () => {
-  await waitForData();
-  const theme = localStorage.getItem("theme");
-  if (theme === "dark") {
+  mainStore.setIsLoading(true);
+  try {
+    const theme = localStorage.getItem("theme");
     const element = document.querySelector("html");
-    element.classList.add("app-dark");
-  } else {
-    localStorage.setItem("theme", "light");
-    const element = document.querySelector("html");
-    element.classList.remove("app-dark");
+    if (theme === "dark") {
+      element.classList.add("app-dark");
+    } else {
+      localStorage.setItem("theme", "light");
+      element.classList.remove("app-dark");
+    }
+
+    await waitForData();
+  } catch (error) {
+    console.log(error);
+  } finally {
+    mainStore.setIsLoading(false);
   }
 });
 </script>

@@ -1,20 +1,19 @@
-// composables/useInitData.ts
+import { onAuthStateChanged } from "firebase/auth";
 
-export function waitForData() {
+export async function waitForData() {
   const authStore = useAuthStore();
   const utilsStore = useUtilsStore();
   const mainStore = useMainStore();
 
-  const initData = async () => {
-    mainStore.setIsLoading(true);
-    try {
-      await authStore.fetchUserData();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      mainStore.setIsLoading(false);
-    }
-  };
-
-  return { initData };
+  try {
+    await onAuthStateChanged(useFirebaseClient().auth, (user) => {
+      if (!user) {
+        navigateTo("/auth/login");
+      } else {
+        authStore.setUser(user);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }

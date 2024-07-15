@@ -58,17 +58,6 @@ export const useAuthStore = defineStore({
         this.error = e.code;
       });
     },
-    async fetchUserData() {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          this.user = user;
-          this.isLoggedIn = true;
-        } else {
-          this.user = {} as User;
-          this.isLoggedIn = false;
-        }
-      });
-    },
     setUser(user: Object) {
       if (!this.user) return
       this.user = user
