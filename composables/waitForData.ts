@@ -15,5 +15,5 @@ export async function waitForData() {
     });
   } catch (error) {
     console.error(error);
-  }
+ }
 }
