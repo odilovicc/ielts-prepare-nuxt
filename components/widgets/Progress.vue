@@ -71,7 +71,6 @@ const setChartOptions = () => {
   );
 
   return {
-    indexAxis: "y",
     maintainAspectRatio: false,
     aspectRatio: 0.8,
     plugins: {
