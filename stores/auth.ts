@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateProfile, type User, onAuthStateChanged } from 'firebase/auth'
 import { defineStore } from 'pinia'
 import { useFirebaseClient } from '#imports'
+import { doc, setDoc } from 'firebase/firestore'
 
 const auth = useFirebaseClient().auth
 
@@ -41,6 +42,22 @@ export const useAuthStore = defineStore({
         if (payload.username) {
           await updateProfile(user, { displayName: payload.username });
         }
+
+        await setDoc(doc(useFirebaseClient().db, "users", user.uid), {
+          uid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          userInfo: {
+            book: {
+              name: 'Harry Potter Chapter 2',
+              progress: 60
+            },
+            words: {
+              total: 1001,
+              plusForToday: 60
+            }
+          }
+        })
 
         this.isLoggedIn = true;
         this.user = user;

@@ -1,5 +1,5 @@
 <template>
-  <Card class="min-w-[50rem]">
+  <Card class="min-w-full md:min-w-[50rem]">
     <template #title>
       <h1 class="text-2xl font-bold text-center">Login</h1>
     </template>

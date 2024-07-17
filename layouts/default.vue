@@ -24,6 +24,7 @@ const routeName = computed(() => {
 
 const loading = computed(() => mainStore.isLoading);
 
+await mainStore.fetchUserInfo();
 onMounted(async () => {
   try {
     const theme = localStorage.getItem("theme");

@@ -2,22 +2,18 @@ import { defineStore } from 'pinia'
 
 export const useMainStore = defineStore({
   id: 'mainStore',
-  state: () => ({ 
+  state: () => ({
     isLoading: false,
-    userInfo: {
-      book: {
-        name: 'Harry Potter',
-        progress: 50
-      },
-      words: {
-        total: 1000,
-        plusForToday: 50
-      }
-    }
+    userInfo: {}
   }),
   actions: {
     setIsLoading(payload: boolean) {
       this.isLoading = payload
+    },
+    async fetchUserInfo() {
+      getInfo('userInfo').then(r => {
+        this.userInfo = r
+      })
     }
   }
 })
