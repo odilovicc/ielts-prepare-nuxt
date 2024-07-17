@@ -3,7 +3,7 @@ import Aura from '@primevue/themes/aura'
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  ssr: true,
+  ssr: false,
   css: ["~/assets/global.css", 'primeicons/primeicons.css'],
   runtimeConfig: {
     apiKey: process.env.NUXT_FIREBASE_APIKEY,
