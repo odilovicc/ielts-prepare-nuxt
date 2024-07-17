@@ -6,18 +6,9 @@
 </template>
 
 <script lang="ts" setup>
-
 const utilsStore = useUtilsStore();
 
 const dayName = computed(() => utilsStore.getToday);
 const action = computed(() => utilsStore.getActionByToday);
-const code = computed(() => utilsStore.getActionByToday?.code);
-
-const emit = defineEmits(['provide-code']);
-
-onMounted(() => {
-  emit('provide-code', code.value);
-});
 </script>
 
-<style></style>

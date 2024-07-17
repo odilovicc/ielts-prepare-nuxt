@@ -1,17 +1,14 @@
 <template>
   <top-header />
-  <div class="py-5">
-    <widgets-daily-quote @provide-code="handleCode" />
+  <div class="py-5 mb-5">
+    <widgets-daily-quote />
   </div>
-  <component :is="code"/>
-  {{ code }}
+  <lazy-widgets-container/>
 </template>
 
 <script lang="ts" setup>
-const code = ref<string | null>(null);
 
-
-function handleCode(newCode: string) {
-  code.value = newCode;
-}
+const WidgetsContainer = defineAsyncComponent({
+  loader: () => import('@/components/widgets/Container.vue'),
+})
 </script>
