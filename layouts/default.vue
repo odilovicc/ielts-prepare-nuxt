@@ -1,14 +1,19 @@
 <template>
   <nuxt-loading-indicator />
-  <div class="flex min-h-screen">
-    <ui-sidebar class="p-10" />
-    <div class="flex-grow p-10">
-      <span class="text-sm mb-4 text-[--p-surface-500] font-medium">
-        {{ routeName }}
-      </span>
-      <slot />
-    </div>
+  <div class="min-h-screen w-svw flex items-center justify-center" v-if="loading">
+    <ui-loader />
   </div>
+  <template v-else>
+    <div class="flex min-h-screen">
+      <ui-sidebar class="p-10" />
+      <div class="flex-grow p-10">
+        <span class="text-sm mb-4 text-[--p-surface-500] font-medium">
+          {{ routeName }}
+        </span>
+        <slot />
+      </div>
+    </div>
+  </template>
 </template>
 
 <script setup lang="ts">

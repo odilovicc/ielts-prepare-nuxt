@@ -36,11 +36,5 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  // Nitro
-  nitro: {
-    prerender: {
-      routes: ["/dashboard"]
-    }
-  },
   modules: ["@nuxt/content", "@nuxt/image", '@primevue/nuxt-module', '@pinia/nuxt'],
 })

@@ -59,7 +59,7 @@ const logIn = async () => {
     email: email.value,
     password: password.value,
   });
-  navigateTo("/dashboard");
+  navigateTo("/");
 };
 </script>
 

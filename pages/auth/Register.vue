@@ -72,7 +72,7 @@ const register = async () => {
     })
     .then(() => {
       if (!error.value) {
-        navigateTo("/dashboard"); 
+        navigateTo("/"); 
       }
     });
 };

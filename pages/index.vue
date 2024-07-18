@@ -7,8 +7,11 @@
 </template>
 
 <script lang="ts" setup>
+const store = useMainStore()
+
 
 const WidgetsContainer = defineAsyncComponent({
   loader: () => import('@/components/widgets/Container.vue'),
 })
+
 </script>

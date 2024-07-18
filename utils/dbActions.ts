@@ -3,37 +3,42 @@ import useFirebaseClient from '~/composables/useFirebaseClient'
 
 const { db, auth } = useFirebaseClient()
 
-export async function getInfo(fieldPath: string = '') {
+async function getAuthenticatedUser() {
     const user = auth.currentUser
     if (!user) {
         throw new Error('User is not authenticated')
     }
+    return user
+}
 
-    const userUid = user.uid
-    const docRef = doc(db, 'users', userUid)
-    const docSnap = await getDoc(docRef)
+export async function getInfo(fieldPath = '') {
+    try {
+        const user = await getAuthenticatedUser()
+        const userUid = user.uid
+        const docRef = doc(db, 'users', userUid)
+        const docSnap = await getDoc(docRef)
 
-    if (docSnap.exists()) {
-        const data = docSnap.data()
-        if (fieldPath) {
-            return fieldPath.split('.').reduce((acc, part) => acc && acc[part], data)
+        if (docSnap.exists()) {
+            const data = docSnap.data()
+            if (fieldPath) {
+                return fieldPath.split('.').reduce((acc, part) => acc && acc[part], data)
+            }
+            return data
+        } else {
+            return null
         }
-        return data
-    } else {
-        return null
+    } catch (error) {
+        console.error('Error getting document:', error)
+        throw error
     }
 }
 
-export async function updateInfo(fieldPath: string, body: any) {
-    const user = auth.currentUser
-    if (!user) {
-        throw new Error('User is not authenticated')
-    }
-
-    const userUid = user.uid
-    const docRef = doc(db, 'users', userUid)
-
+export async function updateInfo(fieldPath, body) {
     try {
+        const user = await getAuthenticatedUser()
+        const userUid = user.uid
+        const docRef = doc(db, 'users', userUid)
+
         await updateDoc(docRef, {
             [fieldPath]: body
         })
