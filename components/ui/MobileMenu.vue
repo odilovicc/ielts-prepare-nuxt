@@ -21,7 +21,7 @@
 
     <!-- Центральная кнопка -->
     <div
-      class="absolute bottom-1 border-[1rem] border-[--p-surface-800] rounded-full left-1/2 transform -translate-x-1/2 z-20"
+      class="absolute bottom-3 border-[1rem] border-[--p-surface-800] rounded-full left-1/2 transform -translate-x-1/2 z-20"
     >
       <nuxt-link to="/notes" class="center-button">
         <i class="pi pi-pencil text-2xl"></i>
