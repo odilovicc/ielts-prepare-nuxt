@@ -48,7 +48,7 @@ onMounted(async () => {
     if (theme === "dark") {
       element.classList.add("app-dark");
     } else {
-      localStorage.setItem("theme", "light");
+      localStorage.setItem("theme", "dark");
       element.classList.remove("app-dark");
     }
     await waitForData();
