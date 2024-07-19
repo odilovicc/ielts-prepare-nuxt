@@ -21,7 +21,7 @@
 
     <!-- Центральная кнопка -->
     <div
-      class="absolute bottom-5 border-[1rem] border-[#121212] rounded-full left-1/2 transform -translate-x-1/2 z-20"
+      class="absolute bottom-5 border-[1rem] border-[--p-surface-800] rounded-full left-1/2 transform -translate-x-1/2 z-20"
     >
       <nuxt-link to="/notes" class="center-button">
         <i class="pi pi-pencil text-2xl"></i>
@@ -86,8 +86,8 @@ const rightRoutes = useState("rightRoutes", () => [
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
   background-color: var(--p-primary-color);
   color: white;
   border-radius: 50%;
