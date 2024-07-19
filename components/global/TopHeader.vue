@@ -1,14 +1,11 @@
 <template>
   <div>
-    <div class="flex justify-between items-center">
+    <div :class="['flex items-center justify-between', device === 'mobile' ? 'px-10 py-5' : '']">
       <h1 class="text-2xl font-bold">
-        Glad to see you
-        <client-only>
-          <span class="text-[--p-primary-color]">{{ username }}</span>
-        </client-only>
+        <span class="text-[--p-primary-color]">{{ username }}</span>
       </h1>
       <overlay-badge :value="notifs.length">
-        <Button icon="pi pi-bell" @click="openNotifs($event)" />
+        <Button icon="pi pi-bell" @click="openNotifs($event)" rounded />
       </overlay-badge>
     </div>
 
@@ -31,6 +28,9 @@
 </template>
 
 <script lang="ts" setup>
+defineProps<{
+  device: string;
+}>();
 const authStore = useAuthStore();
 const utilsStore = useUtilsStore();
 

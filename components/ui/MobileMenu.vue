@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed bottom-0 left-0 right-0 bg-[--p-surface-800] py-4 flex justify-normal items-center relative"
+    class="fixed bottom-0 left-0 right-0 rounded-t-xl bg-[--p-surface-800] py-4 flex justify-normal items-center relative"
   >
     <!-- Меню элементы -->
     <div class="flex w-[40%]">
