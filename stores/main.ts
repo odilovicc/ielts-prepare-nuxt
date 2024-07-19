@@ -5,10 +5,14 @@ export const useMainStore = defineStore({
   id: 'mainStore',
   state: () => ({
     isLoading: false,
+    device: '',
     userInfo: {
     }
   }),
   actions: {
+    setDevice(payload: string) {
+      this.device = payload
+    },
     setIsLoading(payload: boolean) {
       this.isLoading = payload;
     },

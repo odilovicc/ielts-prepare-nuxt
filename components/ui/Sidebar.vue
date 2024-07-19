@@ -62,7 +62,7 @@ const notifs = computed(() => {
     : null;
 });
 
-const routes = useState("roues", () => [
+const routes = useState("routes", () => [
   { icon: "pi pi-home", path: "/", name: "Home" },
   { icon: "pi pi-book", path: "/vocabulary", name: "Vocabulary" },
   { icon: "pi pi-pencil", path: "/notes", name: "Notes" },

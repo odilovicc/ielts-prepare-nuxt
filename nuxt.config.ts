@@ -36,5 +36,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  middleware: ['detectDevice'],
   modules: ["@nuxt/content", "@nuxt/image", '@primevue/nuxt-module', '@pinia/nuxt'],
 })
