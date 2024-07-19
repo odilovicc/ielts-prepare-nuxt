@@ -6,7 +6,7 @@
     <div class="flex w-[40%]">
       <nuxt-link
         :to="route.path"
-        class="flex items-center flex-col justify-normal"
+        class="flex items-center flex-col justify-normal gap-1"
         v-for="route in leftRoutes"
         :key="route.path"
         active-class="active-link"
@@ -20,7 +20,9 @@
     </div>
 
     <!-- Центральная кнопка -->
-    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20">
+    <div
+      class="absolute bottom-5 border-[1rem] border-[#121212] rounded-full left-1/2 transform -translate-x-1/2 z-20"
+    >
       <nuxt-link to="/notes" class="center-button">
         <i class="pi pi-pencil text-2xl"></i>
       </nuxt-link>
@@ -29,7 +31,7 @@
     <div class="w-[40%] flex ml-auto">
       <nuxt-link
         :to="route.path"
-        class="flex items-center flex-col justify-normal"
+        class="flex items-center flex-col justify-normal gap-1"
         v-for="route in rightRoutes"
         :key="route.path"
         active-class="active-link"
@@ -84,12 +86,11 @@ const rightRoutes = useState("rightRoutes", () => [
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 60px;
+  width: 90px;
+  height: 90px;
   background-color: var(--p-primary-color);
   color: white;
   border-radius: 50%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 4px solid var(--p-surface-800); /* Задайте цвет границы, который не будет влиять на меню */
+  box-shadow: 0 0 20px 0 var(--p-primary-color);
 }
 </style>
