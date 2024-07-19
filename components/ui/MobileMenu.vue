@@ -1,19 +1,43 @@
 <template>
-  <div class="bg-[--p-surface-800] rounded-t-xl">
-    <div class="flex items-center p-5 gap-5">
+  <div
+    class="fixed bottom-0 left-0 right-0 bg-[--p-surface-800] py-4 flex justify-normal items-center relative"
+  >
+    <!-- Меню элементы -->
+    <div class="flex w-[40%]">
       <nuxt-link
         :to="route.path"
-        class="flex items-center flex-col justify-between w-full"
-        v-for="route in routes"
+        class="flex items-center flex-col justify-normal"
+        v-for="route in leftRoutes"
         :key="route.path"
         active-class="active-link"
+        :class="route.name === 'Notes' ? 'hidden' : 'menu-item'"
       >
-        <i :class="route.icon" class="text-2xl text-[--p-primary-color]" />
-        <span
-          
-          class="text-lg font-semibold text-[--p-primary-color]"
-        >
-          {{ $route.path === route.path ? route.name : "" }}
+        <i :class="route.icon" class="text-xl" />
+        <span class="text-xs font-semibold text-[--p-primary-color]">
+          {{ route.name }}
+        </span>
+      </nuxt-link>
+    </div>
+
+    <!-- Центральная кнопка -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20">
+      <nuxt-link to="/notes" class="center-button">
+        <i class="pi pi-pencil text-2xl"></i>
+      </nuxt-link>
+    </div>
+
+    <div class="w-[40%] flex ml-auto">
+      <nuxt-link
+        :to="route.path"
+        class="flex items-center flex-col justify-normal"
+        v-for="route in rightRoutes"
+        :key="route.path"
+        active-class="active-link"
+        :class="route.name === 'Notes' ? 'hidden' : 'menu-item'"
+      >
+        <i :class="route.icon" class="text-xl" />
+        <span class="text-xs font-semibold text-[--p-primary-color]">
+          {{ route.name }}
         </span>
       </nuxt-link>
     </div>
@@ -26,7 +50,46 @@ const routes = useState("routes", () => [
   { icon: "pi pi-book", path: "/vocabulary", name: "Vocabulary" },
   { icon: "pi pi-pencil", path: "/notes", name: "Notes" },
   { icon: "pi pi-box", path: "/resources", name: "Resources" },
+  { icon: "pi pi-cog", path: "/settings", name: "Settings" },
+]);
+const leftRoutes = useState("leftRoutes", () => [
+  { icon: "pi pi-home", path: "/", name: "Home" },
+  { icon: "pi pi-book", path: "/vocabulary", name: "Vocabulary" },
+]);
+const rightRoutes = useState("rightRoutes", () => [
+  { icon: "pi pi-box", path: "/resources", name: "Resources" },
+  { icon: "pi pi-cog", path: "/settings", name: "Settings" },
 ]);
 </script>
 
-<style></style>
+<style scoped>
+.fixed {
+  position: fixed;
+}
+.bottom-0 {
+  bottom: 0;
+}
+.left-0 {
+  left: 0;
+}
+.right-0 {
+  right: 0;
+}
+.menu-item {
+  flex: 1;
+  text-align: center;
+  color: var(--p-primary-color);
+}
+.center-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background-color: var(--p-primary-color);
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 4px solid var(--p-surface-800); /* Задайте цвет границы, который не будет влиять на меню */
+}
+</style>
