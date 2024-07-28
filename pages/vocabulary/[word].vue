@@ -1,8 +1,8 @@
 <template>
   <div class="p-4 px-0">
     <div v-if="wordInfo" class="space-y-4">
-      <div class="flex gap-5">
-        <div class="flex gap-5">
+      <div class="flex gap-5 items-center">
+        <div class="flex gap-5 items-center">
           <h1 class="text-4xl font-bold capitalize">
             {{ wordInfo.word.charAt(0).toUpperCase() + wordInfo.word.slice(1) }}
             <span v-if="wordInfo.phonetic" class="text-xl text-gray-700">
@@ -10,7 +10,7 @@
             </span>
           </h1>
           <AudioPlayer
-            v-if="wordInfo.phonetics[0].audio.length > 0"
+            v-if="wordInfo.phonetics[0]"
             :audioSrc="wordInfo.phonetics[0].audio"
           />
         </div>
@@ -34,6 +34,27 @@
           @click="removeWord"
           v-else
         />
+        <Button
+          rounded
+          outlined
+          icon="pi pi-check"
+          label="Mark as Learnt"
+          :disabled="isLoading"
+          :loading="isLoading"
+          @click="markasDone"
+          v-if="!hasLearnt"
+        />
+        <Button
+          rounded
+          outlined
+          icon="pi pi-times"
+          severity="danger"
+          label="Unmark"
+          :disabled="isLoading"
+          :loading="isLoading"
+          @click="unmarkAsDone"
+          v-else
+        />
       </div>
       <div class="flex flex-col gap-4">
         <div v-if="wordInfo.meanings.length">
@@ -50,7 +71,9 @@
                 :key="definition.definition"
               >
                 {{ definition.definition }}
-                <span class="text-sm text-gray-500" v-if="definition.example">Ex: {{ definition.example }}</span>
+                <span class="text-sm text-gray-500" v-if="definition.example"
+                  >Ex: {{ definition.example }}</span
+                >
               </li>
             </ul>
           </div>
@@ -63,7 +86,6 @@
       </div>
     </template>
   </div>
-
 </template>
 
 <script lang="ts" setup>
@@ -73,6 +95,7 @@ const route = useRoute();
 const toast = useToast();
 const isLoading = ref(false);
 const hasMarked = ref(false);
+const hasLearnt = ref(false);
 const errors = ref([]);
 
 const wordInfo = ref<IWord>();
@@ -114,6 +137,45 @@ const removeWord = async () => {
   }
 };
 
+const markasDone = async () => {
+  isLoading.value = true;
+  try {
+    await updateInfo("userInfo.words.learnt", {
+      word,
+      learntAt: Date.now().toLocaleString(),
+    });
+    hasLearnt.value = true;
+  } catch (error) {
+    console.error(error);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+const unmarkAsDone = async () => {
+  isLoading.value = true;
+  try {
+    const learntWords = await getInfo("userInfo.words.learnt");
+    const wordToRemove = learntWords.find((w) => w.word === word);
+
+    if (wordToRemove) {
+      await updateInfo("userInfo.words.learnt", wordToRemove, {
+        method: "remove",
+      });
+      hasLearnt.value = false;
+      toast.add({
+        severity: "success",
+        summary: "Success",
+        detail: "Word removed from learnt",
+        life: 3000,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    isLoading.value = false;
+  }
+};
 const getWord = async () => {
   isLoading.value = true;
   try {
