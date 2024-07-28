@@ -1,8 +1,8 @@
 <template>
   <div class="widget w-full min-h-[34.5rem] flex flex-col">
     <div class="flex items-center justify-between">
-      <h1 class="text-xl font-bold">My progress</h1>
-      <nuxt-img src="/images/Chart Increasing.svg" class="w-12" />
+      <h1 class="md:text-xl font-bold">My progress</h1>
+      <nuxt-img src="/images/Chart Increasing.svg" class="w-6 md:w-12" />
     </div>
     <Chart
       type="bar"

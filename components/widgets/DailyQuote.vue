@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-xl font-semibold">
+  <h1 class="md:text-xl font-semibold">
     Today is <span class="text-[--p-primary-color]">{{ dayName }}</span>. Why not to
     <span class="text-[--p-primary-color]">{{ action.message }}</span>?
   </h1>

@@ -1,11 +1,11 @@
 <template>
   <div class="widget min-w-fit flex flex-col justify-between">
     <div class="flex items-center justify-between">
-      <h1 class="text-xl font-bold">Total words</h1>
-      <nuxt-img src="/images/Open Book.svg" class="w-12" />
+      <h1 class="md:text-xl font-bold">Total words</h1>
+      <nuxt-img src="/images/Open Book.svg" class="w-6 md:w-12" />
     </div>
     <div class="flex gap-2">
-      <span class="text-2xl font-semibold items-end"
+      <span class="text-lg md:text-2xl font-semibold items-end"
         ><ui-counter :target-number="displayedNumber"
       /></span>
       <span class="text-sm font-semibold"

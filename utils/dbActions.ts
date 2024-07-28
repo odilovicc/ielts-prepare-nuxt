@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore'
 import useFirebaseClient from '~/composables/useFirebaseClient'
 
 const { db, auth } = useFirebaseClient()
@@ -33,14 +33,16 @@ export async function getInfo(fieldPath = '') {
     }
 }
 
-export async function updateInfo(fieldPath, body) {
+export async function updateInfo(fieldPath, body, options = { method: 'add' }) {
     try {
         const user = await getAuthenticatedUser()
         const userUid = user.uid
         const docRef = doc(db, 'users', userUid)
 
+        const updateMethod = options.method === 'remove' ? arrayRemove : arrayUnion;
+
         await updateDoc(docRef, {
-            [fieldPath]: body
+            [fieldPath]: updateMethod(body)
         })
         return true
     } catch (error) {

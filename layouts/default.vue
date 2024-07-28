@@ -8,8 +8,8 @@
   </div>
   <template v-else>
     <div class="flex min-h-screen">
-      <ui-sidebar v-if="device === 'desktop'" class="p-10 pr-0" />
-      <div :class="device === 'desktop' ? 'flex-grow p-10' : 'pb-20'">
+      <ui-sidebar v-if="device === 'desktop'" class="p-10 pr-0 fixed" />
+      <div :class="device === 'desktop' ? 'flex-grow p-10 max-w-[93%] ml-auto' : 'pb-20'">
         <top-header :class="{'bg-[--p-surface-800] w-svw rounded-b-xl': device === 'mobile'}" :device="device"/>
         <div :class="{'p-5 pt-0': device === 'mobile'}">
           <slot />

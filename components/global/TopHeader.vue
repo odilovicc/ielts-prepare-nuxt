@@ -1,10 +1,16 @@
 <template>
   <div>
-    <div :class="['flex items-center justify-between', device === 'mobile' ? 'px-10 py-5' : '']">
-      <h1 class="text-2xl font-bold">
+    <div
+      :class="[
+        'flex items-center justify-between',
+        device === 'mobile' ? 'px-10 py-5' : '',
+      ]"
+    >
+      <h1 class="text-xl md:text-2xl font-bold">
         <span class="text-[--p-primary-color]">{{ username }}</span>
       </h1>
-      <overlay-badge :value="notifs.length">
+      <Button v-if="notifs.length === 0" icon="pi pi-bell" @click="openNotifs($event)" rounded />
+      <overlay-badge v-else :value="notifs.length">
         <Button icon="pi pi-bell" @click="openNotifs($event)" rounded />
       </overlay-badge>
     </div>

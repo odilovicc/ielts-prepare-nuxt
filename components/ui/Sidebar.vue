@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="min-h-full flex flex-col justify-between rounded-xl p-5 app-dark:bg-[--p-surface-900] bg-[--p-surface-100]"
+      class="min-h-[90vh] flex flex-col justify-between rounded-xl p-5 app-dark:bg-[--p-surface-900] bg-[--p-surface-100]"
     >
       <div class="flex flex-col gap-5">
         <Button

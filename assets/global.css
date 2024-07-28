@@ -1,6 +1,6 @@
 @layer components {
   .widget {
-    @apply p-5 rounded-lg app-dark:bg-[--p-surface-900] bg-[--p-surface-100] flex-auto
+    @apply p-5 rounded-lg app-dark:bg-[--p-surface-900] bg-[--p-surface-100] flex-1 md:flex-auto
   }
 }
 @layer tailwind-base, primevue, tailwind-utilities;
