@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 px-0">
     <div v-if="wordInfo" class="space-y-4">
-      <div class="flex gap-5 items-center">
+      <div class="flex gap-5 items-center justify-between md:justify-normal">
         <div class="flex gap-5 items-center">
           <h1 class="text-4xl font-bold capitalize">
             {{ wordInfo.word.charAt(0).toUpperCase() + wordInfo.word.slice(1) }}
@@ -10,51 +10,52 @@
             </span>
           </h1>
           <AudioPlayer
-            v-if="wordInfo.phonetics[0]"
+            v-if="wordInfo.phonetics[0].audio"
             :audioSrc="wordInfo.phonetics[0].audio"
           />
         </div>
-        <Button
-          icon="pi pi-bookmark"
-          rounded
-          outlined
-          @click="addWord"
-          :disabled="isLoading"
-          :loading="isLoading"
-          :class="{ 'opacity-50': !wordInfo.meanings.length }"
-          v-if="!hasMarked"
-        />
-        <Button
-          icon="pi pi-trash"
-          rounded
-          outlined
-          severity="danger"
-          :disabled="isLoading"
-          :loading="isLoading"
-          @click="removeWord"
-          v-else
-        />
-        <Button
-          rounded
-          outlined
-          icon="pi pi-check"
-          label="Mark as Learnt"
-          :disabled="isLoading"
-          :loading="isLoading"
-          @click="markasDone"
-          v-if="!hasLearnt"
-        />
-        <Button
-          rounded
-          outlined
-          icon="pi pi-times"
-          severity="danger"
-          label="Unmark"
-          :disabled="isLoading"
-          :loading="isLoading"
-          @click="unmarkAsDone"
-          v-else
-        />
+        <div class="flex items-center gap-3">
+          <Button
+            icon="pi pi-bookmark"
+            rounded
+            outlined
+            @click="addWord"
+            :disabled="isLoading"
+            :loading="isLoading"
+            :class="{ 'opacity-50': !wordInfo.meanings.length }"
+            v-if="!hasMarked"
+          />
+          <Button
+            icon="pi pi-trash"
+            rounded
+            outlined
+            severity="danger"
+            :disabled="isLoading"
+            :loading="isLoading"
+            @click="removeWord"
+            v-else
+          />
+          <Button
+            rounded
+            outlined
+            icon="pi pi-check"
+            :disabled="isLoading"
+            :loading="isLoading"
+            @click="markasDone"
+            v-if="!hasLearnt"
+          />
+          <Button
+            rounded
+            outlined
+            icon="pi pi-times"
+            severity="danger"
+            label="Unmark"
+            :disabled="isLoading"
+            :loading="isLoading"
+            @click="unmarkAsDone"
+            v-else
+          />
+        </div>
       </div>
       <div class="flex flex-col gap-4">
         <div v-if="wordInfo.meanings.length">
