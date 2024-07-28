@@ -69,7 +69,7 @@ const routes = useState("routes", () => [
   { icon: "pi pi-box", path: "/resources", name: "Resources" },
 ]);
 
-const isDark = useState(() => false);
+const isDark = useState(() => true);
 
 const toggleColorScheme = () => {
   const theme = localStorage.getItem("theme");
@@ -79,14 +79,13 @@ const toggleColorScheme = () => {
     localStorage.setItem("theme", "dark");
     element.classList.add("app-dark");
     isDark.value = true;
-  } else {
+  }
+  if (theme === "dark") {
     localStorage.setItem("theme", "light");
     element.classList.remove("app-dark");
     isDark.value = false;
   }
 };
-
-
 
 const signOut = async () => {
   await authStore.logOut();

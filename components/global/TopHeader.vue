@@ -9,10 +9,24 @@
       <h1 class="text-xl md:text-2xl font-bold">
         <span class="text-[--p-primary-color]">{{ username }}</span>
       </h1>
-      <Button v-if="notifs.length === 0" icon="pi pi-bell" @click="openNotifs($event)" rounded />
-      <overlay-badge v-else :value="notifs.length">
-        <Button icon="pi pi-bell" @click="openNotifs($event)" rounded />
-      </overlay-badge>
+      <div :class="device === 'mobile' ? 'flex items-center gap-2' : ''">
+        <Button
+          v-if="notifs.length === 0"
+          icon="pi pi-bell"
+          @click="openNotifs($event)"
+          rounded
+        />
+        <overlay-badge v-else :value="notifs.length">
+          <Button icon="pi pi-bell" @click="openNotifs($event)" rounded />
+        </overlay-badge>
+        <Button
+          v-if="device === 'mobile'"
+          icon="pi pi-sign-out"
+          @click="authStore.logOut"
+          rounded
+          outlined
+        />
+      </div>
     </div>
 
     <popover
