@@ -7,7 +7,8 @@ export const useMainStore = defineStore({
     isLoading: false,
     device: '',
     userInfo: {
-    }
+    },
+    aiResponse: ''
   }),
   actions: {
     setDevice(payload: string) {
@@ -27,6 +28,17 @@ export const useMainStore = defineStore({
       } finally {
         this.isLoading = false
       }
+    },
+    sendPrompt(payload: string) {
+      return new Promise((resolve, reject) => {
+        this.aiResponse = ""
+        useAiUtil(payload)
+          .then((data) => {
+            this.aiResponse = data.text
+            resolve("done")
+          })
+          .catch((e: PromiseRejectedResult) => { reject(e)})
+      })
     }
   }
 });

@@ -3,14 +3,14 @@
     <div v-if="wordInfo" class="space-y-4">
       <div class="flex gap-5 items-center justify-between md:justify-normal">
         <div class="flex gap-5 items-center">
-          <h1 class="text-4xl font-bold capitalize">
+          <h1 class="text-2xl md:text-4xl font-bold capitalize">
             {{ wordInfo.word.charAt(0).toUpperCase() + wordInfo.word.slice(1) }}
             <span v-if="wordInfo.phonetic" class="text-xl text-gray-700">
               {{ wordInfo.phonetic }}
             </span>
           </h1>
           <AudioPlayer
-            v-if="wordInfo.phonetics[0].audio"
+            v-if="hasPhonetics"
             :audioSrc="wordInfo.phonetics[0].audio"
           />
         </div>
@@ -94,10 +94,14 @@ import type { IWord } from "~/types";
 
 const route = useRoute();
 const toast = useToast();
+const store = useMainStore()
+
 const isLoading = ref(false);
 const hasMarked = ref(false);
 const hasLearnt = ref(false);
 const errors = ref([]);
+
+const hasPhonetics = computed(() => wordInfo.value?.phonetics.length > 0);
 
 const wordInfo = ref<IWord>();
 const wordIndex = route.query.wordIndex;
@@ -116,6 +120,7 @@ const addWord = async () => {
         life: 3000,
       });
       hasMarked.value = true;
+      store.fetchUserInfo()
     }
   } catch (error) {
     console.error(error);
@@ -131,6 +136,7 @@ const removeWord = async () => {
       method: "remove",
     });
     hasMarked.value = false;
+    store.fetchUserInfo()
   } catch (error) {
     console.error(error);
   } finally {
@@ -146,6 +152,8 @@ const markasDone = async () => {
       learntAt: Date.now().toLocaleString(),
     });
     hasLearnt.value = true;
+    store.fetchUserInfo()
+
   } catch (error) {
     console.error(error);
   } finally {
@@ -164,6 +172,7 @@ const unmarkAsDone = async () => {
         method: "remove",
       });
       hasLearnt.value = false;
+      store.fetchUserInfo()
       toast.add({
         severity: "success",
         summary: "Success",

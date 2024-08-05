@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.16.0",
     "@nuxt/content": "^2.13.1",
     "@nuxt/image": "^1.7.0",
     "@pinia/nuxt": "^0.5.1",
@@ -18,8 +19,11 @@
     "chart.js": "^4.4.3",
     "firebase": "^10.12.3",
     "firebase-admin": "^12.2.0",
+    "lodash": "^4.17.21",
+    "markdown-it": "^14.1.0",
     "nuxt": "^3.12.3",
     "nuxt-storage": "^1.2.2",
+    "openai": "^4.53.2",
     "pinia": "^2.1.7",
     "primeicons": "^7.0.0",
     "primevue": "^4.0.0",

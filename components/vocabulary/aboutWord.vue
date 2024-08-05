@@ -1,6 +1,6 @@
 <template>
   <div
-    class="widget aboutContainer transition-all duration-500"
+    class="p-2 rounded-lg aboutContainer transition-all duration-500"
     @click="
       $router.push({
         path: `/vocabulary/${props.word.word}`,
