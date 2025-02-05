@@ -9,3 +9,5 @@
 - FireStore
 
   Для осмотра: https://ielts-prepare.vercel.app/
+
+  UPD: **DEPRECATED**
